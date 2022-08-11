@@ -146,11 +146,12 @@ public class ConsumerService {
     return consumerRepository.findById(consumerId).orElse(null);
   }
 
+  @Transactional(rollbackFor = Exception.class)
   public List<ConsumerRole> assignNamespaceRoleToConsumer(String token, String appId, String namespaceName) {
     return assignNamespaceRoleToConsumer(token, appId, namespaceName, null);
   }
 
-  @Transactional
+  @Transactional(rollbackFor = Exception.class)
   public List<ConsumerRole> assignNamespaceRoleToConsumer(String token, String appId, String namespaceName, String env) {
     Long consumerId = getConsumerIdByToken(token);
     if (consumerId == null) {
